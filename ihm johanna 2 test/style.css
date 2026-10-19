@@ -76,7 +76,7 @@ body {
     background-color: var(--canvas);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    overflow-x: hidden;
+    overflow-wrap: anywhere;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -378,7 +378,7 @@ section {
 /* Snabbfakta-rad */
 .snabbfakta-rad {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
     gap: 1.5rem;
     background: var(--yta-sand-ljus);
     border: 1px solid var(--kant);
@@ -734,7 +734,7 @@ section {
 
 .kontakt-lankar {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
     gap: 1.25rem;
     text-align: left;
 }
@@ -923,13 +923,13 @@ footer p {
 
 @media (min-width: 56rem) {
     .om-rutnat {
-        grid-template-columns: 360px 1fr;
+        grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
         gap: 5rem;
     }
 
     .kompetens-layout {
-        grid-template-columns: 460px 1fr;
-        gap: 4.5rem;
+        grid-template-columns: minmax(0, 460px) minmax(0, 1fr);
+        gap: clamp(2rem, 5vw, 4.5rem);
     }
 }
 
@@ -992,4 +992,203 @@ body.morkt {
 body.morkt .sidhuvud {
     background: rgba(27, 22, 19, 0.93);
     border-color: var(--kant);
+}
+
+/* Mobil: lättläst innehåll, tryckvänliga länkar och flexibla kort. */
+.brand, nav, .om-text, .kompetens-layout > *,
+.kontakt-lank-kort > div, .form-falt {
+    min-width: 0;
+}
+
+section[id] {
+    scroll-margin-top: 7rem;
+}
+
+nav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+}
+
+button#tema, .knapp {
+    min-height: 44px;
+}
+
+@media (min-width: 48rem) and (max-width: 70rem) {
+    .sidhuvud {
+        flex-wrap: wrap;
+        gap: 0.5rem 1.5rem;
+    }
+}
+
+@media (max-width: 47.999rem) {
+    .sidhuvud {
+        position: relative;
+        padding: 1rem;
+        gap: 0.75rem;
+    }
+
+    .sidhuvud nav {
+        width: 100%;
+    }
+
+    nav ul {
+        gap: 0.25rem 1rem;
+    }
+
+    nav a {
+        font-size: 0.75rem;
+        letter-spacing: 0.06em;
+    }
+
+    main {
+        padding: 0 1rem;
+    }
+
+    section, .sektion-sand, .sektion-kontakt {
+        padding: 3rem 0;
+    }
+
+    section[id] {
+        scroll-margin-top: 1rem;
+    }
+
+    .intro {
+        padding: 2.5rem 0 3rem;
+    }
+
+    h2 {
+        font-size: clamp(1.5rem, 5vw, 2rem);
+        letter-spacing: 0.06em;
+    }
+
+    .rubrik-italic {
+        font-size: clamp(2rem, 8vw, 3.25rem);
+    }
+
+    .rubrik-caps {
+        font-size: clamp(1.15rem, 4.5vw, 1.75rem);
+        letter-spacing: 0.06em;
+    }
+
+    .badge {
+        max-width: 100%;
+        font-size: 0.7rem;
+        letter-spacing: 0.06em;
+        padding: 0.6rem 0.85rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .intro-text, .sektions-ingress, .kontakt-kort p {
+        font-size: 1rem;
+    }
+
+    .knappar {
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+    }
+
+    .snabbfakta-rad {
+        padding: 1.25rem;
+        gap: 1rem;
+    }
+
+    .sektion-huvud {
+        margin-bottom: 2.5rem;
+    }
+
+    .om-rutnat, .kompetens-layout {
+        gap: 2.5rem;
+    }
+
+    .om-bild-wrapper {
+        width: 100%;
+        max-width: 320px;
+    }
+
+    .profilbild {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 32 / 41;
+    }
+
+    .curved-badge {
+        left: 0;
+    }
+
+    .kompetens-bild {
+        height: auto;
+        aspect-ratio: 10 / 7;
+    }
+
+    .nummer-badge {
+        right: 0;
+    }
+
+    .kompetens-framhavd {
+        padding: 1.75rem 1.25rem;
+    }
+
+    .placeholder-kort {
+        padding: 3rem 1.25rem 2rem;
+    }
+
+    .kontakt-kort {
+        padding: 2rem 1rem;
+    }
+
+    .kontakt-kort p {
+        margin-bottom: 1.5rem;
+    }
+
+    .kontakt-lankar, .kontakt-formular-rad {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .kontakt-lank-kort {
+        padding: 1rem;
+        gap: 0.75rem;
+    }
+
+    .kontakt-lank-kort span {
+        word-break: normal;
+        overflow-wrap: anywhere;
+    }
+
+    .kontakt-formular {
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+    }
+
+    .form-falt input, .form-falt textarea {
+        min-width: 0;
+        font-size: 1rem;
+    }
+
+    footer {
+        padding: 2rem 1rem;
+    }
+}
+
+@media (max-width: 34rem) {
+    .knappar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .knapp {
+        width: 100%;
+        padding: 0.95rem 1rem;
+        text-align: center;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    .curved-svg {
+        animation: none;
+    }
 }
